@@ -21,10 +21,10 @@
 
 <link rel="preload" href="assets/fonts/karantina-700-hebrew.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/fonts.css?v=1">
-<link rel="stylesheet" href="assets/styles.css?v=3">
+<link rel="stylesheet" href="assets/styles.css?v=6">
 <link rel="stylesheet" href="assets/a11y.css?v=1">
 <script src="assets/a11y.js?v=1"></script>
-<script src="assets/app.js?v=2" defer></script>
+<script src="assets/app.js?v=4" defer></script>
 <noscript><style>.ldr{display:none}.rise{opacity:1!important;transform:none!important}.clip>img{clip-path:none!important}.ln>i{transform:none!important}.brand img{opacity:1!important}</style></noscript>
 </head>
 <body>
@@ -85,7 +85,7 @@
       <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor"/></svg>
     </a>
     <a class="btn btn--ink btn--sm" href="https://ig.me/m/altman5283" target="_blank" rel="noopener">להזמנה</a>
-    <button class="burger" id="burger" type="button" aria-label="פתיחת תפריט" aria-expanded="false" aria-controls="drawer"><span></span><span></span></button>
+    <button class="burger" id="burger" type="button" aria-label="פתיחת תפריט" aria-expanded="false" aria-controls="drawer"><span></span><span></span><span></span></button>
   </div>
 </header>
 
@@ -122,56 +122,84 @@
     <div class="hero__media">
       <figure class="hero__a clip"><img src="assets/img/hero-stage.jpg" alt="לובש חולצת ДAV7Д שחורה עם הדפס הדיוקן, יושב על מדרגות הבמה" data-par="0.06"></figure>
       <figure class="hero__b clip"><img src="assets/img/hero-tee.jpg" alt="חולצת ДAV7Д לבנה עם הדפס הלוגו והדיוקן, תלויה על קולב" data-par="-0.08"></figure>
+      <div class="seal" id="seal" aria-hidden="true">
+        <svg viewBox="0 0 200 200">
+          <defs><path id="sealPath" d="M100,100 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0"/></defs>
+          <circle cx="100" cy="100" r="99" class="seal__bg"/>
+          <text class="seal__txt" direction="ltr"><textPath href="#sealPath" startOffset="0" textLength="468" lengthAdjust="spacing">נתפר ביד ✦ מודפס בארץ ✦ מלאי מוגבל ✦</textPath></text>
+          <g class="seal__star"><path d="M100 70 L126 115 H74 Z"/><path d="M100 130 L74 85 H126 Z"/></g>
+        </svg>
+      </div>
     </div>
   </section>
+
+  <!-- ===================== VELOCITY BAND ===================== -->
+  <div class="band" aria-hidden="true">
+    <div class="band__track" id="bandTrack">
+      <span>נתפר ביד</span><b></b><span class="o">מודפס בארץ</span><b></b><span>מלאי מוגבל</span><b></b><span class="o">ДAV7Д</span><b></b>
+    </div>
+  </div>
 
   <!-- ===================== THE DROP ===================== -->
   <section class="drop" id="drop">
     <header class="sec-head">
-      <h2 class="h2 rise">הדרופ הנוכחי</h2>
-      <p class="sec-head__meta rise">שלושה פריטים · כמויות קטנות · הזמנות מוקדמות פתוחות</p>
+      <h2 class="h2 split">הדרופ הנוכחי</h2>
+      <p class="sec-head__meta rise">שני הדפסים במלאי · ₪150 לחולצה · הזמנות בדיירקט</p>
     </header>
 
-    <div class="grid">
-      <article class="prod rise">
-        <a class="prod__media" href="https://ig.me/m/altman5283" target="_blank" rel="noopener" aria-label="להזמנת הטי השחורה בדיירקט">
-          <img class="prod__img" src="assets/img/p-black.jpg" alt="חולצת ДAV7Д שחורה עם הדפס הלוגו, הכוכבים והדיוקן" loading="lazy">
-          <img class="prod__img prod__img--alt" src="assets/img/p-black-2.jpg" alt="" loading="lazy">
-          <span class="tag">מלאי מוגבל</span>
+    <div class="grid" id="grid">
+      <article class="prod rise" data-cursor="₪150 · להזמנה">
+        <a class="prod__media" href="https://ig.me/m/altman5283" target="_blank" rel="noopener" aria-label="להזמנת הטי השחורה, 150 שקלים, בדיירקט">
+          <img class="prod__img" src="assets/img/t-black.jpg" alt="חולצת ДAV7Д שחורה עם הדפס הלוגו, השרשרת, מגני הדוד והדיוקן" loading="lazy">
+          <img class="prod__img prod__img--alt" src="assets/img/p-black.jpg" alt="" loading="lazy">
+          <span class="prod__sheen" aria-hidden="true"></span>
+          <span class="tag">במלאי</span>
         </a>
         <div class="prod__info">
-          <h3>טי שחורה · הדפס דיוקן</h3>
-          <p>הלוגו, שני מגני הדוד והדיוקן - בלבן על שחור.</p>
-          <a class="prod__cta" href="https://ig.me/m/altman5283" target="_blank" rel="noopener">להזמנה <span aria-hidden="true">←</span></a>
+          <div class="prod__row"><h3>טי שחורה · הדפס דיוקן</h3><p class="prod__price">₪150</p></div>
+          <p>הלוגו בכרום, השרשרת והדיוקן - על שחור.</p>
+          <div class="prod__row prod__row--end">
+            <span class="swatch swatch--black" aria-label="צבע: שחור"></span>
+            <a class="prod__cta" href="https://ig.me/m/altman5283" target="_blank" rel="noopener">להזמנה <span aria-hidden="true">←</span></a>
+          </div>
         </div>
       </article>
 
-      <article class="prod rise">
-        <a class="prod__media" href="https://ig.me/m/altman5283" target="_blank" rel="noopener" aria-label="להזמנת הטי הלבנה בדיירקט">
-          <img class="prod__img" src="assets/img/p-white.jpg" alt="חולצת ДAV7Д לבנה עם הדפס הלוגו והדיוקן" loading="lazy">
-          <img class="prod__img prod__img--alt" src="assets/img/p-white-2.jpg" alt="" loading="lazy">
-          <span class="tag">מלאי מוגבל</span>
+      <article class="prod rise" data-cursor="₪150 · להזמנה">
+        <a class="prod__media" href="https://ig.me/m/altman5283" target="_blank" rel="noopener" aria-label="להזמנת הטי הלבנה, 150 שקלים, בדיירקט">
+          <img class="prod__img" src="assets/img/t-white.jpg" alt="חולצת ДAV7Д לבנה עם הדפס הלוגו, השרשרת, מגני הדוד והדיוקן" loading="lazy">
+          <img class="prod__img prod__img--alt" src="assets/img/p-white.jpg" alt="" loading="lazy">
+          <span class="prod__sheen" aria-hidden="true"></span>
+          <span class="tag">במלאי</span>
         </a>
         <div class="prod__info">
-          <h3>טי לבנה · הדפס דיוקן</h3>
-          <p>אותו הדפס, הפוך - בשחור על לבן.</p>
-          <a class="prod__cta" href="https://ig.me/m/altman5283" target="_blank" rel="noopener">להזמנה <span aria-hidden="true">←</span></a>
+          <div class="prod__row"><h3>טי לבנה · הדפס דיוקן</h3><p class="prod__price">₪150</p></div>
+          <p>אותו הדפס, הפוך - על לבן.</p>
+          <div class="prod__row prod__row--end">
+            <span class="swatch swatch--white" aria-label="צבע: לבן"></span>
+            <a class="prod__cta" href="https://ig.me/m/altman5283" target="_blank" rel="noopener">להזמנה <span aria-hidden="true">←</span></a>
+          </div>
         </div>
       </article>
 
-      <article class="prod rise">
+      <article class="prod rise" data-cursor="לשלוח הודעה">
         <a class="prod__media" href="https://ig.me/m/altman5283" target="_blank" rel="noopener" aria-label="לתיאום פריט בתפירה אישית בדיירקט">
           <img class="prod__img" src="assets/img/p-hand.jpg" alt="ידיים תופרות בד משובץ שחור-לבן על שולחן העבודה" loading="lazy">
           <img class="prod__img prod__img--alt" src="assets/img/p-hand-2.jpg" alt="" loading="lazy">
+          <span class="prod__sheen" aria-hidden="true"></span>
           <span class="tag tag--blue">בהזמנה אישית</span>
         </a>
         <div class="prod__info">
-          <h3>תפירה ביד · בהזמנה</h3>
+          <div class="prod__row"><h3>תפירה ביד · בהזמנה</h3><p class="prod__price prod__price--soft">לפי פריט</p></div>
           <p>פריטים שנתפרים אחד-אחד. שלחו הודעה ונדבר על מה שאתם רוצים.</p>
-          <a class="prod__cta" href="https://ig.me/m/altman5283" target="_blank" rel="noopener">לשלוח הודעה <span aria-hidden="true">←</span></a>
+          <div class="prod__row prod__row--end">
+            <span></span>
+            <a class="prod__cta" href="https://ig.me/m/altman5283" target="_blank" rel="noopener">לשלוח הודעה <span aria-hidden="true">←</span></a>
+          </div>
         </div>
       </article>
     </div>
+    <div class="dots" id="gridDots" aria-hidden="true"><i class="on"></i><i></i><i></i></div>
   </section>
 
   <!-- ===================== HANDMADE ===================== -->
@@ -180,7 +208,7 @@
       <img src="assets/img/art.jpg" alt="ההדפס המקורי של ДAV7Д: הלוגו עם שרשרת ומגני דוד מעל דיוקן בשחור-לבן" loading="lazy">
     </figure>
     <div class="story__copy">
-      <h2 class="h2 rise">כל חולצה עוברת בידיים.</h2>
+      <h2 class="h2 split">כל חולצה עוברת בידיים.</h2>
       <p class="story__lede rise">
         אין פה מפעל ואין פס ייצור. ההדפסים מעוצבים כאן, החולצות יוצאות מכאן,
         והפריטים המיוחדים נתפרים ביד - אחד אחרי השני. זה לוקח יותר זמן, וזה בדיוק העניין.
@@ -197,9 +225,10 @@
   <section class="field" id="field">
     <div class="field__sticky">
       <header class="field__head">
-        <h2 class="h2">לא נשאר על הקולב.</h2>
+        <h2 class="h2 split">לא נשאר על הקולב.</h2>
         <p>על הבמה, בדוכן בשוק, ברחוב - ככה זה נראה כשזה יוצא החוצה.</p>
       </header>
+      <div class="field__bar" aria-hidden="true"><i id="fieldBar"></i><span class="field__hint">החליקו לצדדים</span></div>
       <div class="field__view" id="fieldView">
         <div class="field__track" id="fieldTrack">
           <figure class="shot shot--p"><img src="assets/img/st-1.jpg" alt="על הבמה בהופעה, בחולצת ДAV7Д שחורה" loading="lazy"><figcaption>על הבמה</figcaption></figure>
@@ -228,7 +257,7 @@
       <li>מקבלים תשובה אישית</li>
     </ul>
     <div class="order__cta rise">
-      <a class="btn btn--ink btn--lg" href="https://ig.me/m/altman5283" target="_blank" rel="noopener">
+      <a class="btn btn--ink btn--lg magnetic" href="https://ig.me/m/altman5283" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor"/></svg>
         להזמנה בדיירקט
       </a>
@@ -240,7 +269,7 @@
 
 <!-- ===================== FOOTER ===================== -->
 <footer class="foot">
-  <img class="foot__logo" src="assets/img/logo_ink.png" alt="ДAV7Д" width="685" height="305" loading="lazy">
+  <div class="foot__mark" id="footMark"><img class="foot__logo" src="assets/img/logo_ink.png" alt="ДAV7Д" width="685" height="305" loading="lazy"></div>
   <div class="foot__row">
     <p class="foot__line">מותג בגדים בעבודת יד מישראל.</p>
     <nav class="foot__links" aria-label="קישורים">
@@ -254,7 +283,7 @@
   </div>
 </footer>
 
-<a class="mcta" id="mcta" href="https://ig.me/m/altman5283" target="_blank" rel="noopener" aria-hidden="true" tabindex="-1">להזמנה בדיירקט</a>
+<div class="cur" id="cur" aria-hidden="true"><span class="cur__dot"></span><span class="cur__ring"><em id="curTxt"></em></span></div>
 
 </body>
 </html>

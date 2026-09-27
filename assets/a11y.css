@@ -119,7 +119,7 @@
    ========================================================================== */
 
 /* Larger text — scales page blocks, never the widget itself. */
-[data-text="large"] body > *:not(.a11y-btn):not(.a11y-panel):not(.skip):not(.grain):not(.ldr):not(.mcta) { zoom: 1.12; }
+[data-text="large"] body > *:not(.a11y-btn):not(.a11y-panel):not(.skip):not(.grain):not(.ldr) { zoom: 1.12; }
 
 /* High contrast — lift the muted inks so body copy passes AA comfortably.
    `html[...]` so these outrank the page's own :root block. */
