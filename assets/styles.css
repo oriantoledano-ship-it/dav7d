@@ -270,8 +270,8 @@ body.drawer-on .a11y-btn{opacity:0;pointer-events:none}
 .band__track{display:flex;align-items:center;gap:clamp(22px,3vw,44px);width:max-content;will-change:transform}
 .band__track span{direction:rtl;font-family:var(--disp);font-weight:700;font-size:clamp(66px,9.4vw,156px);line-height:.9;white-space:nowrap;padding-top:.06em}
 .band__logo{flex:none;height:clamp(64px,9vw,150px);width:auto}
-.band__track b{flex:none;width:clamp(30px,3.6vw,58px);aspect-ratio:1;background:center/contain no-repeat
-  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230038B8' stroke-width='1.7' stroke-linejoin='round'%3E%3Cpath d='M12 2.5 21 18H3z'/%3E%3Cpath d='M12 21.5 3 6h18z'/%3E%3C/svg%3E")}
+.band__star{flex:none;height:clamp(40px,4.8vw,78px);width:auto}
+.band__track span.o{color:#fff;-webkit-text-stroke:1.6px var(--ink);paint-order:stroke fill}
 
 /* headings split into letters that rise out of a mask */
 .split .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.1em;margin-bottom:-.1em}
