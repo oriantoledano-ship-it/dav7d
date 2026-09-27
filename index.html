@@ -21,10 +21,10 @@
 
 <link rel="preload" href="assets/fonts/karantina-700-hebrew.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/fonts.css?v=1">
-<link rel="stylesheet" href="assets/styles.css?v=6">
+<link rel="stylesheet" href="assets/styles.css?v=8">
 <link rel="stylesheet" href="assets/a11y.css?v=1">
 <script src="assets/a11y.js?v=1"></script>
-<script src="assets/app.js?v=4" defer></script>
+<script src="assets/app.js?v=5" defer></script>
 <noscript><style>.ldr{display:none}.rise{opacity:1!important;transform:none!important}.clip>img{clip-path:none!important}.ln>i{transform:none!important}.brand img{opacity:1!important}</style></noscript>
 </head>
 <body>
@@ -123,12 +123,8 @@
       <figure class="hero__a clip"><img src="assets/img/hero-stage.jpg" alt="לובש חולצת ДAV7Д שחורה עם הדפס הדיוקן, יושב על מדרגות הבמה" data-par="0.06"></figure>
       <figure class="hero__b clip"><img src="assets/img/hero-tee.jpg" alt="חולצת ДAV7Д לבנה עם הדפס הלוגו והדיוקן, תלויה על קולב" data-par="-0.08"></figure>
       <div class="seal" id="seal" aria-hidden="true">
-        <svg viewBox="0 0 200 200">
-          <defs><path id="sealPath" d="M100,100 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0"/></defs>
-          <circle cx="100" cy="100" r="99" class="seal__bg"/>
-          <text class="seal__txt" direction="ltr"><textPath href="#sealPath" startOffset="0" textLength="468" lengthAdjust="spacing">נתפר ביד ✦ מודפס בארץ ✦ מלאי מוגבל ✦</textPath></text>
-          <g class="seal__star"><path d="M100 70 L126 115 H74 Z"/><path d="M100 130 L74 85 H126 Z"/></g>
-        </svg>
+        <img class="seal__ring" src="assets/img/seal.png" alt="" width="420" height="420">
+        <svg class="seal__star" viewBox="0 0 200 200"><path d="M100 70 L126 115 H74 Z"/><path d="M100 130 L74 85 H126 Z"/></svg>
       </div>
     </div>
   </section>
@@ -136,7 +132,7 @@
   <!-- ===================== VELOCITY BAND ===================== -->
   <div class="band" aria-hidden="true">
     <div class="band__track" id="bandTrack">
-      <span>נתפר ביד</span><b></b><span class="o">מודפס בארץ</span><b></b><span>מלאי מוגבל</span><b></b><span class="o">ДAV7Д</span><b></b>
+      <span>נתפר ביד</span><b></b><span>מודפס בארץ</span><b></b><span>מלאי מוגבל</span><b></b><img class="band__logo" src="assets/img/logo_ink.png" alt="" width="685" height="305"><b></b>
     </div>
   </div>
 
