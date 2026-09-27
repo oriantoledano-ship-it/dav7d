@@ -1,0 +1,22 @@
+/* ДAV7Д - legal pages. Self-contained, same bone/ink system. */
+:root{--paper:#ECEAE4;--paper-2:#E1DED6;--ink:#0E0E0E;--ink-2:#34332F;--ink-3:#6F6D67;--line:rgba(14,14,14,.16);--blue:#0038B8;
+  --disp:'Karantina',Impact,sans-serif;--body:'IBM Plex Sans Hebrew',system-ui,sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-font-smoothing:antialiased}
+body{background:var(--paper);color:var(--ink-2);font-family:var(--body);font-size:16.5px;line-height:1.85;min-height:100vh}
+a{color:var(--blue)}
+a:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.top{display:flex;align-items:center;justify-content:space-between;padding:18px clamp(18px,4vw,40px);border-bottom:1px solid var(--line)}
+.top img{width:110px;height:auto}
+.back{font-size:14px;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1.5px solid var(--ink)}
+.legal{max-width:780px;margin:0 auto;padding:56px clamp(18px,5vw,32px) 90px}
+h1{font-family:var(--disp);font-weight:700;font-size:clamp(56px,9vw,96px);line-height:.9;color:var(--ink);margin-bottom:14px}
+.meta{font-size:14px;color:var(--ink-3);padding-bottom:26px;margin-bottom:30px;border-bottom:1px solid var(--line)}
+h2{font-size:19px;font-weight:600;color:var(--ink);margin:38px 0 10px}
+p{margin-bottom:14px}
+ul{margin:0 0 18px;padding-inline-start:20px}
+li{margin-bottom:8px}
+strong{color:var(--ink)}
+.note{margin-top:40px;padding:22px 24px;background:var(--paper-2);border-inline-start:3px solid var(--ink)}
+.foot{padding:26px clamp(18px,4vw,40px);border-top:1px solid var(--line);font-size:13px;color:var(--ink-3);display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
+.foot a{color:var(--ink-2)}
