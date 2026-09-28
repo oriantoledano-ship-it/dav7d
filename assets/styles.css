@@ -296,6 +296,16 @@ body.drawer-on .a11y-btn{opacity:0;pointer-events:none}
 .dots{display:none}
 
 /* ---------- shop: add to cart + cart drawer ---------- */
+.sizes{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-top:12px}
+.sizes__l{font-size:13px;font-weight:500;color:var(--ink-3);margin-inline-end:4px}
+.sizes button{min-width:40px;height:34px;padding:0 8px;background:none;border:0;cursor:pointer;
+  font:600 13px/1 var(--body);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line);transition:box-shadow .25s,background-color .25s,color .25s}
+.sizes button:hover{box-shadow:inset 0 0 0 1.5px var(--ink)}
+.sizes button[aria-checked="true"]{background:var(--ink);color:var(--paper);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.sizes__err{font-style:normal;font-size:13px;font-weight:600;color:var(--blue);margin-inline-start:6px}
+.sizes__err:empty{display:none}
+.sizes.is-err button{box-shadow:inset 0 0 0 1.5px var(--blue);animation:sizeshake .4s}
+@keyframes sizeshake{25%,75%{transform:translateX(-3px)}50%{transform:translateX(3px)}}
 .prod__buy{display:flex;align-items:center;gap:12px;margin-top:12px}
 .prod__buy .swatch{flex:none;margin-inline-end:4px}
 .qty{display:inline-flex;align-items:center;flex:none;height:40px;box-shadow:inset 0 0 0 1.5px var(--line)}
@@ -350,6 +360,10 @@ body.drawer-on .a11y-btn{opacity:0;pointer-events:none}
 body.cart-on .a11y-btn{opacity:0;pointer-events:none}
 @media (max-width:760px){
   .prod__buy{gap:8px}
+  .sizes{gap:5px}
+  .sizes button{min-width:0;flex:1;padding:0 4px}
+  .sizes__l{display:none}
+  .sizes__err{flex-basis:100%;margin:2px 0 0}
   .prod__buy .swatch{display:none}
   .prod__add{padding:0 12px;font-size:13.5px}
   .cart__head h2{font-size:54px}

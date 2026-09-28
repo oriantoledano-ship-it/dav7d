@@ -393,7 +393,9 @@
     black: { name: 'טי שחורה · הדפס דיוקן', price: 150, img: 'assets/img/t-black.jpg' },
     white: { name: 'טי לבנה · הדפס דיוקן', price: 150, img: 'assets/img/t-white.jpg' }
   };
-  var CK = 'dav7d-cart', MAXQ = 10;
+  var CK = 'dav7d-cart', MAXQ = 10, SIZES = ['XS', 'S', 'M', 'L', 'XL'];
+  /* a cart line is one tee in one size: key 'black|M' */
+  function part(key) { var a = key.split('|'); return { sku: a[0], size: a[1], p: PRODUCTS[a[0]] }; }
   var BAG = '<path d="M6 7h12l-1 13H7L6 7z" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linejoin="round"/><path d="M9 9V6a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round"/>';
   function ils(n) { return '₪' + n.toLocaleString('he-IL'); }
 
@@ -402,7 +404,7 @@
     if (!end) return;
     var cart = {};
     try { cart = JSON.parse(localStorage.getItem(CK)) || {}; } catch (e) {}
-    Object.keys(cart).forEach(function (k) { if (!PRODUCTS[k] || !(cart[k] > 0)) delete cart[k]; });
+    Object.keys(cart).forEach(function (k) { var x = part(k); if (!x.p || SIZES.indexOf(x.size) < 0 || !(cart[k] > 0)) delete cart[k]; });
 
     var btn = document.createElement('button');
     btn.type = 'button'; btn.className = 'nav__cart';
@@ -429,7 +431,8 @@
 
     var list = panel.querySelector('.cart__list'), lastFocus = null;
     function count() { return Object.keys(cart).reduce(function (s, k) { return s + cart[k]; }, 0); }
-    function total() { return Object.keys(cart).reduce(function (s, k) { return s + cart[k] * PRODUCTS[k].price; }, 0); }
+    function total() { return Object.keys(cart).reduce(function (s, k) { return s + cart[k] * part(k).p.price; }, 0); }
+    function order(k) { var x = part(k); return Object.keys(PRODUCTS).indexOf(x.sku) * 10 + SIZES.indexOf(x.size); }
     function save() { try { localStorage.setItem(CK, JSON.stringify(cart)); } catch (e) {} }
     function render() {
       var n = count(), t = total();
@@ -440,10 +443,10 @@
       panel.querySelector('[data-cn]').textContent = n ? '(' + n + ')' : '';
       panel.querySelector('[data-sub]').textContent = ils(t);
       panel.querySelector('[data-total]').textContent = ils(t);
-      list.innerHTML = Object.keys(PRODUCTS).filter(function (k) { return cart[k]; }).map(function (k) {
-        var p = PRODUCTS[k], q = cart[k];
+      list.innerHTML = Object.keys(cart).sort(function (a, b) { return order(a) - order(b); }).map(function (k) {
+        var x = part(k), p = x.p, q = cart[k];
         return '<li class="cart__item" data-k="' + k + '"><img src="' + p.img + '" alt="" width="78" height="98">' +
-          '<div><b>' + p.name + '</b><small>' + ils(p.price) + ' ליחידה</small>' +
+          '<div><b>' + p.name + '</b><small>מידה <bdi>' + x.size + '</bdi> · <bdi>' + ils(p.price) + '</bdi> ליחידה</small>' +
             '<div class="qty" role="group" aria-label="כמות"><button type="button" data-d="1" aria-label="הוספת יחידה"' + (q >= MAXQ ? ' disabled' : '') + '>+</button>' +
             '<span class="qty__n">' + q + '</span><button type="button" data-d="-1" aria-label="הפחתת יחידה"' + (q <= 1 ? ' disabled' : '') + '>−</button></div></div>' +
           '<div class="cart__side"><span class="cart__line">' + ils(p.price * q) + '</span><button type="button" class="cart__rm" data-rm>הסרה</button></div></li>';
@@ -470,7 +473,7 @@
       if (!r || !r.width) { open(); return; }
       var to = btn.getBoundingClientRect();
       var img = document.createElement('img');
-      img.src = PRODUCTS[k].img; img.alt = ''; img.className = 'cart-fly';
+      img.src = part(k).p.img; img.alt = ''; img.className = 'cart-fly';
       img.style.cssText = 'left:' + r.left + 'px;top:' + r.top + 'px;width:' + r.width + 'px;height:' + r.height + 'px';
       document.body.appendChild(img);
       var dx = to.left + to.width / 2 - (r.left + r.width / 2), dy = to.top + to.height / 2 - (r.top + r.height / 2);
@@ -494,9 +497,23 @@
       card.querySelectorAll('[data-step]').forEach(function (b) {
         b.addEventListener('click', function () { setQ(q + +b.getAttribute('data-step')); });
       });
+      var sizes = card.querySelector('.sizes'), err = card.querySelector('.sizes__err'), size = null;
+      sizes.querySelectorAll('[data-size]').forEach(function (b) {
+        b.addEventListener('click', function () {
+          size = b.getAttribute('data-size');
+          sizes.querySelectorAll('[data-size]').forEach(function (o) { o.setAttribute('aria-checked', o === b ? 'true' : 'false'); });
+          sizes.classList.remove('is-err'); err.textContent = '';
+        });
+      });
       var addBtn = card.querySelector('[data-add]'), lab = addBtn.querySelector('.prod__add-t'), t;
       addBtn.addEventListener('click', function () {
-        add(addBtn.getAttribute('data-add'), q, card.querySelector('.prod__img'));
+        if (!size) {
+          sizes.classList.remove('is-err'); void sizes.offsetWidth; sizes.classList.add('is-err');
+          err.textContent = 'בחרו מידה';
+          sizes.querySelector('[data-size]').focus({ preventScroll: true });
+          return;
+        }
+        add(addBtn.getAttribute('data-add') + '|' + size, q, card.querySelector('.prod__img'));
         addBtn.classList.add('is-added'); lab.textContent = 'נוסף לעגלה';
         clearTimeout(t);
         t = setTimeout(function () { addBtn.classList.remove('is-added'); lab.textContent = 'הוספה לעגלה'; setQ(1); }, 1800);
