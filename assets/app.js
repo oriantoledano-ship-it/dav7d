@@ -387,6 +387,152 @@
     });
   }
 
+  /* ---------- shop: add to cart + cart drawer. Checkout is a demo button
+     that intentionally does nothing (the real store will live on Shopify). ---------- */
+  var PRODUCTS = {
+    black: { name: 'טי שחורה · הדפס דיוקן', price: 150, img: 'assets/img/t-black.jpg' },
+    white: { name: 'טי לבנה · הדפס דיוקן', price: 150, img: 'assets/img/t-white.jpg' }
+  };
+  var CK = 'dav7d-cart', MAXQ = 10;
+  var BAG = '<path d="M6 7h12l-1 13H7L6 7z" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linejoin="round"/><path d="M9 9V6a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round"/>';
+  function ils(n) { return '₪' + n.toLocaleString('he-IL'); }
+
+  function initCart() {
+    var end = document.querySelector('.nav__end'), burger = $('burger');
+    if (!end) return;
+    var cart = {};
+    try { cart = JSON.parse(localStorage.getItem(CK)) || {}; } catch (e) {}
+    Object.keys(cart).forEach(function (k) { if (!PRODUCTS[k] || !(cart[k] > 0)) delete cart[k]; });
+
+    var btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'nav__cart';
+    btn.setAttribute('aria-controls', 'cart'); btn.setAttribute('aria-expanded', 'false');
+    btn.innerHTML = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">' + BAG + '</svg><span class="nav__cart-n">0</span>';
+    end.insertBefore(btn, burger);
+
+    var ov = document.createElement('div'); ov.className = 'cart-ov';
+    var panel = document.createElement('aside');
+    panel.className = 'cart'; panel.id = 'cart';
+    panel.setAttribute('role', 'dialog'); panel.setAttribute('aria-modal', 'true');
+    panel.setAttribute('aria-labelledby', 'cartTitle'); panel.setAttribute('aria-hidden', 'true');
+    panel.innerHTML =
+      '<div class="cart__head"><h2 id="cartTitle">העגלה<span data-cn></span></h2>' +
+        '<button type="button" class="cart__x" aria-label="סגירת העגלה"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>' +
+      '<div class="cart__body"><ul class="cart__list"></ul>' +
+        '<div class="cart__empty"><b>העגלה ריקה</b><p>הדרופ הנוכחי מחכה לכם.</p><a class="btn btn--line" href="#drop" data-close>לדרופ</a></div></div>' +
+      '<div class="cart__foot">' +
+        '<div class="cart__row"><span>סכום ביניים</span><b data-sub></b></div>' +
+        '<div class="cart__row cart__row--total"><span>סה״כ</span><b data-total></b></div>' +
+        '<button type="button" class="btn btn--ink btn--lg cart__go">השלמת הזמנה</button>' +
+      '</div>';
+    document.body.appendChild(ov); document.body.appendChild(panel);
+
+    var list = panel.querySelector('.cart__list'), lastFocus = null;
+    function count() { return Object.keys(cart).reduce(function (s, k) { return s + cart[k]; }, 0); }
+    function total() { return Object.keys(cart).reduce(function (s, k) { return s + cart[k] * PRODUCTS[k].price; }, 0); }
+    function save() { try { localStorage.setItem(CK, JSON.stringify(cart)); } catch (e) {} }
+    function render() {
+      var n = count(), t = total();
+      btn.querySelector('.nav__cart-n').textContent = n;
+      btn.classList.toggle('has-items', n > 0);
+      btn.setAttribute('aria-label', n ? 'העגלה, ' + n + ' פריטים' : 'העגלה ריקה');
+      panel.setAttribute('data-empty', n ? '0' : '1');
+      panel.querySelector('[data-cn]').textContent = n ? '(' + n + ')' : '';
+      panel.querySelector('[data-sub]').textContent = ils(t);
+      panel.querySelector('[data-total]').textContent = ils(t);
+      list.innerHTML = Object.keys(PRODUCTS).filter(function (k) { return cart[k]; }).map(function (k) {
+        var p = PRODUCTS[k], q = cart[k];
+        return '<li class="cart__item" data-k="' + k + '"><img src="' + p.img + '" alt="" width="78" height="98">' +
+          '<div><b>' + p.name + '</b><small>' + ils(p.price) + ' ליחידה</small>' +
+            '<div class="qty" role="group" aria-label="כמות"><button type="button" data-d="1" aria-label="הוספת יחידה"' + (q >= MAXQ ? ' disabled' : '') + '>+</button>' +
+            '<span class="qty__n">' + q + '</span><button type="button" data-d="-1" aria-label="הפחתת יחידה"' + (q <= 1 ? ' disabled' : '') + '>−</button></div></div>' +
+          '<div class="cart__side"><span class="cart__line">' + ils(p.price * q) + '</span><button type="button" class="cart__rm" data-rm>הסרה</button></div></li>';
+      }).join('');
+    }
+    function open() {
+      lastFocus = document.activeElement;
+      ov.classList.add('is-open'); panel.classList.add('is-open');
+      panel.setAttribute('aria-hidden', 'false'); btn.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('cart-on'); document.body.style.overflow = 'hidden';
+      setTimeout(function () { panel.querySelector('.cart__x').focus(); }, 60);
+    }
+    function close() {
+      if (!panel.classList.contains('is-open')) return;
+      ov.classList.remove('is-open'); panel.classList.remove('is-open');
+      panel.setAttribute('aria-hidden', 'true'); btn.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('cart-on');
+      if (!document.body.classList.contains('drawer-on')) document.body.style.overflow = '';
+      if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+    }
+    function add(k, q, from) {
+      cart[k] = Math.min(MAXQ, (cart[k] || 0) + q); save(); render();
+      var r = from && !reduce && from.getBoundingClientRect();
+      if (!r || !r.width) { open(); return; }
+      var to = btn.getBoundingClientRect();
+      var img = document.createElement('img');
+      img.src = PRODUCTS[k].img; img.alt = ''; img.className = 'cart-fly';
+      img.style.cssText = 'left:' + r.left + 'px;top:' + r.top + 'px;width:' + r.width + 'px;height:' + r.height + 'px';
+      document.body.appendChild(img);
+      var dx = to.left + to.width / 2 - (r.left + r.width / 2), dy = to.top + to.height / 2 - (r.top + r.height / 2);
+      var a = img.animate([
+        { transform: 'translate(0,0) scale(1) rotate(0)', opacity: 1 },
+        { transform: 'translate(' + (dx * 0.5).toFixed(1) + 'px,' + (dy * 0.5 - 70).toFixed(1) + 'px) scale(.42) rotate(-8deg)', opacity: 1, offset: 0.55 },
+        { transform: 'translate(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px) scale(.06) rotate(-18deg)', opacity: 0.3 }
+      ], { duration: 760, easing: 'cubic-bezier(.5,0,.3,1)' });
+      var done = false, fin = function () {
+        if (done) return; done = true; img.remove();
+        btn.classList.remove('bump'); void btn.offsetWidth; btn.classList.add('bump');
+        setTimeout(open, 240);
+      };
+      a.onfinish = fin; setTimeout(fin, 1200);   // WAAPI can stall in a background tab
+    }
+
+    document.querySelectorAll('.prod[data-sku]').forEach(function (card) {
+      var n = card.querySelector('.qty__n'), minus = card.querySelector('[data-step="-1"]'), q = 1;
+      function setQ(v) { q = clamp(v, 1, MAXQ); n.textContent = q; minus.disabled = q <= 1; }
+      setQ(1);
+      card.querySelectorAll('[data-step]').forEach(function (b) {
+        b.addEventListener('click', function () { setQ(q + +b.getAttribute('data-step')); });
+      });
+      var addBtn = card.querySelector('[data-add]'), lab = addBtn.querySelector('.prod__add-t'), t;
+      addBtn.addEventListener('click', function () {
+        add(addBtn.getAttribute('data-add'), q, card.querySelector('.prod__img'));
+        addBtn.classList.add('is-added'); lab.textContent = 'נוסף לעגלה';
+        clearTimeout(t);
+        t = setTimeout(function () { addBtn.classList.remove('is-added'); lab.textContent = 'הוספה לעגלה'; setQ(1); }, 1800);
+      });
+    });
+
+    list.addEventListener('click', function (e) {
+      var li = e.target.closest('.cart__item'); if (!li) return;
+      var k = li.getAttribute('data-k'), d = e.target.closest('[data-d]');
+      if (d) cart[k] = clamp(cart[k] + +d.getAttribute('data-d'), 1, MAXQ);
+      else if (e.target.closest('[data-rm]')) delete cart[k];
+      else return;
+      save(); render();
+    });
+    btn.addEventListener('click', open);
+    ov.addEventListener('click', close);
+    panel.querySelector('.cart__x').addEventListener('click', close);
+    panel.querySelector('[data-close]').addEventListener('click', close);
+    document.addEventListener('keydown', function (e) {
+      if (!panel.classList.contains('is-open')) return;
+      if (e.key === 'Escape') { e.stopImmediatePropagation(); close(); return; }
+      if (e.key === 'Tab') {
+        var f = panel.querySelectorAll('button:not([disabled]), a[href]');
+        var first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+    addEventListener('storage', function (e) {
+      if (e.key !== CK) return;
+      try { cart = JSON.parse(e.newValue) || {}; } catch (x) { cart = {}; }
+      render();
+    });
+    render();
+  }
+
   /* ---------- in-page anchors ---------- */
   function initAnchors() {
     document.querySelectorAll('a[href^="#"]').forEach(function (a) {
@@ -406,7 +552,7 @@
     if (y) y.textContent = new Date().getFullYear();
     initSplit();
     initChrome(); initStrip(); initBand(); initReveals(); initScrollFx(); initField();
-    initTilt(); initDots(); initCursor(); initMagnetic(); initAnchors();
+    initTilt(); initDots(); initCursor(); initMagnetic(); initCart(); initAnchors();
     initLoader(heroIn);
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);

@@ -21,10 +21,10 @@
 
 <link rel="preload" href="assets/fonts/karantina-700-hebrew.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="assets/fonts.css?v=1">
-<link rel="stylesheet" href="assets/styles.css?v=9">
+<link rel="stylesheet" href="assets/styles.css?v=10">
 <link rel="stylesheet" href="assets/a11y.css?v=1">
 <script src="assets/a11y.js?v=1"></script>
-<script src="assets/app.js?v=5" defer></script>
+<script src="assets/app.js?v=6" defer></script>
 <noscript><style>.ldr{display:none}.rise{opacity:1!important;transform:none!important}.clip>img{clip-path:none!important}.ln>i{transform:none!important}.brand img{opacity:1!important}</style></noscript>
 </head>
 <body>
@@ -144,36 +144,38 @@
     </header>
 
     <div class="grid" id="grid">
-      <article class="prod rise" data-cursor="₪150 · להזמנה">
-        <a class="prod__media" href="https://ig.me/m/altman5283" target="_blank" rel="noopener" aria-label="להזמנת הטי השחורה, 150 שקלים, בדיירקט">
+      <article class="prod rise" data-sku="black">
+        <div class="prod__media" data-cursor="₪150">
           <img class="prod__img" src="assets/img/t-black.jpg" alt="חולצת ДAV7Д שחורה עם הדפס הלוגו, השרשרת, מגני הדוד והדיוקן" loading="lazy">
           <img class="prod__img prod__img--alt" src="assets/img/p-black.jpg" alt="" loading="lazy">
           <span class="prod__sheen" aria-hidden="true"></span>
           <span class="tag">במלאי</span>
-        </a>
+        </div>
         <div class="prod__info">
           <div class="prod__row"><h3>טי שחורה · הדפס דיוקן</h3><p class="prod__price">₪150</p></div>
           <p>הלוגו בכרום, השרשרת והדיוקן - על שחור.</p>
-          <div class="prod__row prod__row--end">
+          <div class="prod__buy">
             <span class="swatch swatch--black" aria-label="צבע: שחור"></span>
-            <a class="prod__cta" href="https://ig.me/m/altman5283" target="_blank" rel="noopener">להזמנה <span aria-hidden="true">←</span></a>
+            <div class="qty" role="group" aria-label="כמות"><button type="button" data-step="1" aria-label="הוספת יחידה">+</button><span class="qty__n" aria-live="polite">1</span><button type="button" data-step="-1" aria-label="הפחתת יחידה">−</button></div>
+            <button type="button" class="btn btn--ink btn--sm prod__add" data-add="black"><span class="prod__add-t">הוספה לעגלה</span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7z" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linejoin="round"/><path d="M9 9V6a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round"/></svg></button>
           </div>
         </div>
       </article>
 
-      <article class="prod rise" data-cursor="₪150 · להזמנה">
-        <a class="prod__media" href="https://ig.me/m/altman5283" target="_blank" rel="noopener" aria-label="להזמנת הטי הלבנה, 150 שקלים, בדיירקט">
+      <article class="prod rise" data-sku="white">
+        <div class="prod__media" data-cursor="₪150">
           <img class="prod__img" src="assets/img/t-white.jpg" alt="חולצת ДAV7Д לבנה עם הדפס הלוגו, השרשרת, מגני הדוד והדיוקן" loading="lazy">
           <img class="prod__img prod__img--alt" src="assets/img/p-white.jpg" alt="" loading="lazy">
           <span class="prod__sheen" aria-hidden="true"></span>
           <span class="tag">במלאי</span>
-        </a>
+        </div>
         <div class="prod__info">
           <div class="prod__row"><h3>טי לבנה · הדפס דיוקן</h3><p class="prod__price">₪150</p></div>
           <p>אותו הדפס, הפוך - על לבן.</p>
-          <div class="prod__row prod__row--end">
+          <div class="prod__buy">
             <span class="swatch swatch--white" aria-label="צבע: לבן"></span>
-            <a class="prod__cta" href="https://ig.me/m/altman5283" target="_blank" rel="noopener">להזמנה <span aria-hidden="true">←</span></a>
+            <div class="qty" role="group" aria-label="כמות"><button type="button" data-step="1" aria-label="הוספת יחידה">+</button><span class="qty__n" aria-live="polite">1</span><button type="button" data-step="-1" aria-label="הפחתת יחידה">−</button></div>
+            <button type="button" class="btn btn--ink btn--sm prod__add" data-add="white"><span class="prod__add-t">הוספה לעגלה</span><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7z" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linejoin="round"/><path d="M9 9V6a3 3 0 0 1 6 0v3" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round"/></svg></button>
           </div>
         </div>
       </article>
